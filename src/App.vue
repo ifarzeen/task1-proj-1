@@ -4,7 +4,7 @@
     <Header/>
     <ButtonGo v-on:click.native="toggle = !toggle"/>
     <div v-show="toggle">
-      <Table/>
+      <DataTable/>
     </div>
     
  
@@ -14,7 +14,7 @@
 <script>
 import Header from './components/layout/header'
 import ButtonGo from './components/buttonGo'
-import Table from './components/table'
+import DataTable from './components/DataTable'
 
 
 export default {
@@ -22,7 +22,7 @@ export default {
   components: {
     Header,
     ButtonGo,
-    Table
+    DataTable
   },
    data () {
    return {
