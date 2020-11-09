@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table class="myDataTableClass compact">
+    <table class="data-table display">
       <thead>
         <tr>
           <th>Sr#</th>
@@ -37,12 +37,8 @@ export default {
 
     let myDataTable;
     $(document).ready(function() {
-      myDataTable = $(".myDataTableClass")
-        .dataTable({
-      
-   
-        
-        })
+      myDataTable = $(".data-table")
+        .dataTable()
         .api({
           data: this.tableData,
           columns: [{ title: "sr#" }, { title: "Author" }, { title: "Title" }],
@@ -84,7 +80,7 @@ table {
   width: 100%;
   align-self: center;
 }
-/* 
+
 th {
   background-color: #dddddd;
 }
@@ -93,7 +89,7 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-} */
+}
 
 .btn1 {
   background-color: transparent;
