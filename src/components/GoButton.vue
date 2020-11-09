@@ -6,12 +6,13 @@
 
 <script>
 export default {
-    name:'ButtonGo'
+    name:'Go-Button'
 }
 </script>
 
 <style>
 .btn{
     margin-top: 30px;
+    margin-bottom: 10px;
 }
 </style>

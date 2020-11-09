@@ -2,7 +2,7 @@
   <div id="app">
 
     <Header/>
-    <ButtonGo v-on:click.native="toggle = !toggle"/>
+    <GoButton v-on:click.native="toggle = !toggle"/>
     <div v-show="toggle">
       <DataTable/>
     </div>
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Header from './components/layout/header'
-import ButtonGo from './components/buttonGo'
+import Header from './components/layout/Header'
+import GoButton from './components/GoButton'
 import DataTable from './components/DataTable'
 
 
@@ -21,7 +21,7 @@ export default {
   name: 'App',
   components: {
     Header,
-    ButtonGo,
+    GoButton,
     DataTable
   },
    data () {

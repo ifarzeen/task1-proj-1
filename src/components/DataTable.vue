@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table class="myDataTable">
+    <table class="data-table display">
       <thead>
         <tr>
           <th>Sr#</th>
@@ -9,10 +9,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="index" v-for="(mydata, index) in tableData">
+        <tr v-bind:key="tableItem + index" v-for="(tableItem, index) in tableData">
           <td>{{ index + 1 }}</td>
-          <td>{{ mydata.data.author }}</td>
-          <td>{{ mydata.data.title }}</td>
+          <td>{{ tableItem.data.author }}</td>
+          <td>{{ tableItem.data.title }}</td>
         </tr>
       </tbody>
     </table>
@@ -24,24 +24,26 @@ import axios from "axios";
 import $ from "jquery";
 
 export default {
-  name: "Table",
+  name: "Data-Table",
   data() {
     return {
-      tableData: [],
+      tableData: []
     };
   },
 
-  
-  async mounted() {
-    const responseTableData = await axios.get("https://www.reddit.com/r/technology/new.json");
-    this.tableData = responseTableData.data.data.children;
-    var myDataTable;
+  methods:{
+    
+    searchDelay:()=>{
+
+    let myDataTable;
     $(document).ready(function() {
-      myDataTable = $(".myDataTable")
+      myDataTable = $(".data-table")
         .dataTable()
         .api({
           data: this.tableData,
           columns: [{ title: "sr#" }, { title: "Author" }, { title: "Title" }],
+        
+      
         });
 
       const inputBox = $("input").attr("aria-name", "DataTables_Table_0");
@@ -59,6 +61,14 @@ export default {
       });
     });
 
+
+    }
+  },
+
+  async mounted() {
+    const responseTableData = await axios.get("https://www.reddit.com/r/technology/new.json");
+    this.tableData = responseTableData.data.data.children;
+    this.searchDelay();
   }
 };
 </script>
@@ -89,4 +99,8 @@ th {
 input {
   width: 90%;
 }
+
+/* .myDataTableClass{
+  margin-top: 10px;
+} */
 </style>
