@@ -2,11 +2,9 @@
   <div id="app">
 
     <Header/>
-    <GoButton v-on:click.native="toggle = !toggle"/>
-    <div v-show="toggle">
-      <DataTable/>
-    </div>
-    
+    <router-link to="/Datatable"><GoButton/></router-link>
+
+    <router-view></router-view>
  
   </div>
 </template>
@@ -14,21 +12,14 @@
 <script>
 import Header from './components/layout/Header'
 import GoButton from './components/GoButton'
-import DataTable from './components/DataTable'
 
 
 export default {
   name: 'App',
   components: {
     Header,
-    GoButton,
-    DataTable
-  },
-   data () {
-   return {
-     toggle: false
-   }
- }
+    GoButton
+  }
 }
 </script>
 
