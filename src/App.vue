@@ -2,7 +2,7 @@
   <div id="app">
 
     <Header/>
-    <router-link to="/Datatable"><GoButton/></router-link>
+    <router-link to="/data-table"><GoButton/></router-link>
 
     <router-view></router-view>
  

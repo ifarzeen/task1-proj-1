@@ -13,7 +13,7 @@ import dtable from './components/DataTable.vue'
 Vue.use(VueRouter);
 
 
-const routes=[{path:'/datatable', component: dtable}];
+const routes=[{path:'/data-table', component: dtable}];
 
 const router=new VueRouter({
   routes

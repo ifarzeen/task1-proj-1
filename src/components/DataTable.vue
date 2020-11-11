@@ -6,6 +6,7 @@
           <th>Sr#</th>
           <th>Author</th>
           <th>Title</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -13,6 +14,12 @@
           <td>{{ index + 1 }}</td>
           <td>{{ tableItem.data.author }}</td>
           <td>{{ tableItem.data.title }}</td>
+          <td>
+            <button v-bind:key="index" class="btn btn-primary" @click="toggleRowDetail">Detail</button>
+            <div  v-show="showDetail">
+            <RowDetail :author="tableItem.data.author" :title="tableItem.data.title"/> 
+            </div>   
+          </td>
         </tr>
       </tbody>
     </table>
@@ -22,17 +29,27 @@
 <script>
 import axios from "axios";
 import $ from "jquery";
+import RowDetail from './RowDetail.vue'
 
 export default {
   name: "Data-Table",
+  components:{
+    RowDetail
+  },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      showDetail:false
     };
   },
+  
 
   methods:{
     
+
+     toggleRowDetail () {
+          this.showDetail = !this.showDetail
+      } ,
     searchDelay:()=>{
 
     let myDataTable;
@@ -41,7 +58,7 @@ export default {
         .dataTable()
         .api({
           data: this.tableData,
-          columns: [{ title: "sr#" }, { title: "Author" }, { title: "Title" }],
+          columns: [{ title: "sr#" }, { title: "Author" }, { title: "Title" },{ title: "Actions" }],
         
       
         });
