@@ -15,8 +15,8 @@
           <td>{{ tableItem.data.author }}</td>
           <td>{{ tableItem.data.title }}</td>
           <td>
-            <button v-bind:key="index" class="btn btn-primary" @click="toggleRowDetail">Detail</button>
-            <div  v-show="showDetail">
+            <button  class="btn btn-primary" @click="toggleRowDetail(index)">Detail</button>
+            <div v-show="showDetail === index">
             <RowDetail :author="tableItem.data.author" :title="tableItem.data.title"/> 
             </div>   
           </td>
@@ -47,8 +47,8 @@ export default {
   methods:{
     
 
-     toggleRowDetail () {
-          this.showDetail = !this.showDetail
+     toggleRowDetail (index) {
+          this.showDetail = index
       } ,
     searchDelay:()=>{
 
