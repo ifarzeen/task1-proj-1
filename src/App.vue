@@ -1,26 +1,22 @@
 <template>
   <div id="app">
-
-    <Header/>
-    <router-link to="/Datatable"><GoButton/></router-link>
-
+    <Header />
+    <router-link to="/data-table"><GoButton /></router-link>
     <router-view></router-view>
- 
   </div>
 </template>
 
 <script>
-import Header from './components/layout/Header'
-import GoButton from './components/GoButton'
-
+import Header from "./components/layout/header";
+import GoButton from "./components/GoButton";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    GoButton
-  }
-}
+    GoButton,
+  },
+};
 </script>
 
 <style>
@@ -30,6 +26,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
 }
 </style>
