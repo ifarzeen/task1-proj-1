@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="postItem + index" v-for="(postItem, index) in postData">
+        <tr v-bind:key="postItem + index" v-for="(postItem, index) in postsData">
           <td>{{ index + 1 }}</td>
           <td>{{ postItem.data.author }}</td>
           <td>{{ postItem.data.title }}</td>
@@ -25,41 +25,45 @@
         </tr>
       </tbody>
     </table>
-    <PostList v-on:deletePost="deletePost($event)" :post-details="postDetails" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import $ from "jquery";
-import PostList from "./PostList.vue";
+
 export default {
   name: "Data-Table",
   components: {
-    PostList,
+  
   },
   data() {
     return {
-      postData: [],
+      
       showDetail: false,
       postDetails: [],
     };
   },
+  computed:{
+    postsData(){
+      return this.$store.commit('postsData')
+    }
+  },
   methods: {
-    showRowDetail(tableItem) {
-      this.postDetails.push(tableItem);
+    showRowDetail(postItem) {
+      this.postDetails.push(postItem);
     },
     deletePost(data) {
-      this.postData = this.postData.filter((currentItem) => {
+      this.postsData = this.postsData.filter((currentItem) => {
         return data !== currentItem.data.id;
       });
     },
     initializeAndSearchDelay(){  
       $(document).ready(function() {
-       let myDataTable = $(".data-table")
+       const myDataTable = $(".data-table")
           .dataTable()
           .api({
-            data: this.postData,
+            data: this.postsData,
             columns: [
               { title: "sr#" },
               { title: "Author" },
@@ -84,7 +88,7 @@ export default {
       "https://www.reddit.com/r/technology/new.json"
     );
     this.initializeAndSearchDelay();
-    this.postData = responseTableData.data.data.children;
+    this.postsData = responseTableData.data.data.children;
   },
 };
 </script>
