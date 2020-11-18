@@ -94,11 +94,11 @@ export default {
   },
 
   async mounted() {
-    const responseTableData = await axios.get(
+    const tableData = await axios.get(
       "https://www.reddit.com/r/technology/new.json"
     );
     this.initializeAndDelaySearch();
-    this.postsData = responseTableData.data.data.children;
+    this.postsData = tableData.data.data.children;
   }
 };
 </script>
