@@ -5,9 +5,7 @@ import 'datatables.net'
 import 'datatables.net-dt'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 import VueRouter from 'vue-router'
-
 import dtable from './components/DataTable.vue'
 
 Vue.use(VueRouter);

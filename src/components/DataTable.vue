@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table class="data-table">
+    <table class="data-table display">
       <thead>
         <tr>
           <th>Sr#</th>
@@ -10,22 +10,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-bind:key="tableItem + index"
-          v-for="(tableItem, index) in tableData"
-        >
+        <tr v-bind:key="postItem + index" v-for="(postItem, index) in postData">
           <td>{{ index + 1 }}</td>
-          <td>{{ tableItem.data.author }}</td>
-          <td>{{ tableItem.data.title }}</td>
+          <td>{{ postItem.data.author }}</td>
+          <td>{{ postItem.data.title }}</td>
           <td>
-            <button class="btn btn-primary" @click="showRowDetail(tableItem.data)">
+            <button
+              class="btn btn-primary"
+              @click="showRowDetail(postItem.data)"
+            >
               Detail
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <PostList v-on:deleteRow="deleteRow($event)" :post-details="postDetails" />
+    <PostList v-on:deletePost="deletePost($event)" :post-details="postDetails" />
   </div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      tableData: [],
+      postData: [],
       showDetail: false,
       postDetails: [],
     };
@@ -49,28 +49,22 @@ export default {
 
   methods: {
     showRowDetail(tableItem) {
-      this.postDetails.push(tableItem)
-      console.log(this.postDetails)
-
+      this.postDetails.push(tableItem);
     },
 
-    deleteRow:function(data){
-      console.log(data)
-       this.tableData=this.tableData.filter((currentItem) => {
-         console.log(currentItem)
-         console.log(data)
-         console.log(currentItem.data.author)
-        
-        return data !== currentItem.data.id
-       });
+    deletePost(data) {
+      this.postData = this.postData.filter((currentItem) => {
+        return data !== currentItem.data.id;
+      });
     },
-    searchDelay: () => {
-      let myDataTable;
-      $(document).ready(function () {
-        myDataTable = $(".data-table")
+
+    initializeAndSearchDelay(){
+      
+      $(document).ready(function() {
+       let myDataTable = $(".data-table")
           .dataTable()
           .api({
-            data: this.tableData,
+            data: this.postData,
             columns: [
               { title: "sr#" },
               { title: "Author" },
@@ -81,7 +75,7 @@ export default {
 
         const inputBox = $("input").attr("aria-name", "DataTables_Table_0");
 
-        inputBox.unbind().bind("keyup", function () {
+        inputBox.unbind().bind("keyup", function() {
           if (inputBox.val().length >= 3) {
             myDataTable.search(this.value).draw();
           }
@@ -97,8 +91,8 @@ export default {
     const responseTableData = await axios.get(
       "https://www.reddit.com/r/technology/new.json"
     );
-    this.tableData = responseTableData.data.data.children;
-    this.searchDelay();
+    this.initializeAndSearchDelay();
+    this.postData = responseTableData.data.data.children;
   },
 };
 </script>
@@ -129,8 +123,4 @@ th {
 input {
   width: 90%;
 }
-
-/* .myDataTableClass{
-  margin-top: 10px;
-} */
 </style>
