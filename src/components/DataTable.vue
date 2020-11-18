@@ -60,7 +60,7 @@ export default {
     },
 
     deletePost(data) {
-      this.postsData = this.postsData.filter((currentItem) => {
+      this.postsData = this.postsData.filter(currentItem => {
         return data !== currentItem.data.id;
       });
     },
