@@ -67,7 +67,7 @@ export default {
 
     initializeAndDelaySearch() {
       $(document).ready(function() {
-        let myDataTable = $(".data-table")
+        const myDataTable = $(".data-table")
           .dataTable()
           .api({
             data: this.postsData,
