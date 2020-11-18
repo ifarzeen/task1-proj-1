@@ -100,7 +100,6 @@ export default {
     this.initializeAndDelaySearch();
     this.postsData = responseTableData.data.data.children;
   }
-  
 };
 </script>
 
