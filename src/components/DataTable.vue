@@ -10,7 +10,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="postItem + index" v-for="(postItem, index) in postData">
+        <tr
+          v-bind:key="postItem + index"
+          v-for="(postItem, index) in postsData"
+        >
           <td>{{ index + 1 }}</td>
           <td>{{ postItem.data.author }}</td>
           <td>{{ postItem.data.title }}</td>
@@ -25,7 +28,10 @@
         </tr>
       </tbody>
     </table>
-    <PostList v-on:deletePost="deletePost($event)" :post-details="postDetails" />
+    <PostList
+      v-on:deletePost="deletePost($event)"
+      :post-details="postDetails"
+    />
   </div>
 </template>
 
@@ -39,9 +45,10 @@ export default {
   components: {
     PostList,
   },
+
   data() {
     return {
-      postData: [],
+      postsData: [],
       showDetail: false,
       postDetails: [],
     };
@@ -53,18 +60,17 @@ export default {
     },
 
     deletePost(data) {
-      this.postData = this.postData.filter((currentItem) => {
+      this.postsData = this.postsData.filter((currentItem) => {
         return data !== currentItem.data.id;
       });
     },
 
-    initializeAndSearchDelay(){
-      
+    initializeAndDelaySearch() {
       $(document).ready(function() {
-       let myDataTable = $(".data-table")
+        let myDataTable = $(".data-table")
           .dataTable()
           .api({
-            data: this.postData,
+            data: this.postsData,
             columns: [
               { title: "sr#" },
               { title: "Author" },
@@ -91,9 +97,10 @@ export default {
     const responseTableData = await axios.get(
       "https://www.reddit.com/r/technology/new.json"
     );
-    this.initializeAndSearchDelay();
-    this.postData = responseTableData.data.data.children;
-  },
+    this.initializeAndDelaySearch();
+    this.postsData = responseTableData.data.data.children;
+  }
+  
 };
 </script>
 

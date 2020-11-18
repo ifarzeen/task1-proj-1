@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div v-bind:key="singlePost + index" v-for="(singlePost, index) in postDetails">
-      <RowDetail v-on:deletePost="deletePost($event)" :post-details="singlePost" />
+    <div
+      v-bind:key="singlePost + index"
+      v-for="(singlePost, index) in postDetails"
+    >
+      <RowDetail
+        v-on:deletePost="deletePost($event)"
+        :post-details="singlePost"
+      />
     </div>
   </div>
 </template>
@@ -19,7 +25,7 @@ export default {
     deletePost(data) {
       this.$emit("deletePost", data);
     },
-  },
+  }
 };
 </script>
 

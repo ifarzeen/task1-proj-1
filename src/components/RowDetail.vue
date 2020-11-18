@@ -3,7 +3,6 @@
     <div class="mx-auto card">
       <b> Author:</b> {{ " " + postDetails.author }} <b>Title: </b
       >{{ " " + postDetails.title }}
-
       <button v-on:click="deletePost">Delete</button>
     </div>
   </div>
@@ -17,8 +16,8 @@ export default {
   methods: {
     deletePost() {
       this.$emit("deletePost", this.postDetails.id);
-    },
-  },
+    }
+  }
 };
 </script>
 
