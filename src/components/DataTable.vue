@@ -60,9 +60,9 @@ export default {
     },
 
     deletePost(data) {
-      this.postsData = this.postsData.filter(currentItem => {
-        return data !== currentItem.data.id;
-      });
+      this.postsData = this.postsData.filter(currentItem => 
+         data !== currentItem.data.id
+      );
     },
 
     initializeAndDelaySearch() {
