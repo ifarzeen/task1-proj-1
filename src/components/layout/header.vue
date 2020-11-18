@@ -1,5 +1,5 @@
 <template>
-    <header class=header>
+    <header class="header">
        <h1> Test App </h1>
     </header>
 </template>

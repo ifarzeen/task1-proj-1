@@ -33,7 +33,6 @@
 import axios from "axios";
 import $ from "jquery";
 import PostList from "./PostList.vue";
-
 export default {
   name: "Data-Table",
   components: {
@@ -46,20 +45,16 @@ export default {
       postDetails: [],
     };
   },
-
   methods: {
     showRowDetail(tableItem) {
       this.postDetails.push(tableItem);
     },
-
     deletePost(data) {
       this.postData = this.postData.filter((currentItem) => {
         return data !== currentItem.data.id;
       });
     },
-
-    initializeAndSearchDelay(){
-      
+    initializeAndSearchDelay(){  
       $(document).ready(function() {
        let myDataTable = $(".data-table")
           .dataTable()
@@ -72,9 +67,7 @@ export default {
               { title: "Actions" },
             ],
           });
-
         const inputBox = $("input").attr("aria-name", "DataTables_Table_0");
-
         inputBox.unbind().bind("keyup", function() {
           if (inputBox.val().length >= 3) {
             myDataTable.search(this.value).draw();
@@ -86,7 +79,6 @@ export default {
       });
     },
   },
-
   async mounted() {
     const responseTableData = await axios.get(
       "https://www.reddit.com/r/technology/new.json"
@@ -104,7 +96,6 @@ table {
   width: 100%;
   align-self: center;
 }
-
 th {
   background-color: #dddddd;
 }
@@ -114,12 +105,10 @@ th {
   text-align: left;
   padding: 8px;
 }
-
 .btn1 {
   background-color: transparent;
   border: none;
 }
-
 input {
   width: 90%;
 }

@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-
     <Header/>
     <router-link to="/data-table"><GoButton/></router-link>
-
     <router-view></router-view>
- 
   </div>
 </template>
 
 <script>
 import Header from './components/layout/Header'
 import GoButton from './components/GoButton'
-
-
 export default {
   name: 'App',
   components: {
