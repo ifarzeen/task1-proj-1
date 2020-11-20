@@ -10,14 +10,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-bind:key="postItem + index" v-for="(postItem, index) in postsData">
+        <tr
+          v-bind:key="postItem + index"
+          v-for="(postItem, index) in postsData"
+        >
           <td>{{ index + 1 }}</td>
           <td>{{ postItem.data.author }}</td>
           <td>{{ postItem.data.title }}</td>
           <td>
             <button
               class="btn btn-primary"
-              @click="showRowDetail(postItem.data)"
+              @click="showPostDetail(postItem.data)"
             >
               Detail
             </button>
@@ -25,42 +28,36 @@
         </tr>
       </tbody>
     </table>
+    <PostList/>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import $ from "jquery";
-
+import PostList from "./PostList.vue";
 export default {
   name: "Data-Table",
   components: {
-  
+    PostList,
   },
-  data() {
-    return {
-      
-      showDetail: false,
-      postDetails: [],
-    };
+  computed: {
+    postsData() {
+      return this.$store.getters.getTableData;
+    },
   },
-  computed:{
-    postsData(){
-      return this.$store.commit('postsData')
-    }
+  async created() {
+    await this.$store.dispatch("requestTableData");
+  },
+  updated() {
+    this.initializeAndDelaySearch();
   },
   methods: {
-    showRowDetail(postItem) {
-      this.postDetails.push(postItem);
+    showPostDetail(postItem) {
+      this.$store.commit("SHOW_POST_DETAIL", postItem);
     },
-    deletePost(data) {
-      this.postsData = this.postsData.filter((currentItem) => {
-        return data !== currentItem.data.id;
-      });
-    },
-    initializeAndSearchDelay(){  
+    initializeAndDelaySearch() {
       $(document).ready(function() {
-       const myDataTable = $(".data-table")
+        const myDataTable = $(".data-table")
           .dataTable()
           .api({
             data: this.postsData,
@@ -82,13 +79,6 @@ export default {
         });
       });
     },
-  },
-  async mounted() {
-    const responseTableData = await axios.get(
-      "https://www.reddit.com/r/technology/new.json"
-    );
-    this.initializeAndSearchDelay();
-    this.postsData = responseTableData.data.data.children;
   },
 };
 </script>
