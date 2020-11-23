@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
     },
     DELETE_POST(state, payload) {
       state.postsData = state.postsData.filter(
-        (currentItem) => currentItem.data.id !== payload);
+        currentItem => currentItem.data.id !== payload);
     },
   },
   actions: {
