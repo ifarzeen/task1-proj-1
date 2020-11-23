@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-bind:key="singlePost + index + index"
+      v-bind:key="singlePost + index"
       v-for="(singlePost, index) in postDetails"
     >
       <RowDetail :single-post-detail="singlePost" />
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     postDetails() {
-      return this.$store.getters.getPostDetail;
+      return this.$store.getters.getPostDetails;
     },
   },
 };

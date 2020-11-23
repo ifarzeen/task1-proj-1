@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-bind:key="postItem + index"
+          v-bind:key="'postItem-' + index"
           v-for="(postItem, index) in postsData"
         >
           <td>{{ index + 1 }}</td>
@@ -20,7 +20,7 @@
           <td>
             <button
               class="btn btn-primary"
-              @click="showPostDetail(postItem.data)"
+              @click="showPostDetails(postItem.data)"
             >
               Detail
             </button>
@@ -28,7 +28,7 @@
         </tr>
       </tbody>
     </table>
-    <PostList/>
+    <PostList />
   </div>
 </template>
 
@@ -45,15 +45,15 @@ export default {
       return this.$store.getters.getTableData;
     },
   },
-  async created() {
-    await this.$store.dispatch("requestTableData");
+  created() {
+    this.$store.dispatch("requestTableData");
   },
   updated() {
     this.initializeAndDelaySearch();
   },
   methods: {
-    showPostDetail(postItem) {
-      this.$store.commit("SHOW_POST_DETAIL", postItem);
+    showPostDetails(postItem) {
+      this.$store.commit("SHOW_POST_DETAILS", postItem);
     },
     initializeAndDelaySearch() {
       $(document).ready(function() {

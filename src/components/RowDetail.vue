@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="mx-auto card">
-      <b> Author:</b> {{ " " + singlePostDetail.author }} <b>Title: </b
-      >{{ " " + singlePostDetail.title }}
+      <b> Author:</b> {{ singlePostDetail.author }} <b>Title: </b
+      >{{ singlePostDetail.title }}
       <button v-on:click="deletePost(singlePostDetail.id)">Delete</button>
     </div>
   </div>

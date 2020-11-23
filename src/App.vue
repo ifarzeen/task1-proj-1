@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Header from './components/layout/header'
+import Header from './components/layout/Header'
 import GoButton from './components/GoButton'
 export default {
   name: 'App',

@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     getTableData(state) {
       return state.postsData;
     },
-    getPostDetail(state) {
+    getPostDetails(state) {
       return state.postDetails;
     },
   },
@@ -22,7 +22,7 @@ export const store = new Vuex.Store({
     INITIALIZE_TABLE(state, payload) {
       state.postsData = payload.data.data.children;
     },
-    SHOW_POST_DETAIL(state, payload) {
+    SHOW_POST_DETAILS(state, payload) {
       state.postDetails.push(payload);
     },
     DELETE_POST(state, payload) {
