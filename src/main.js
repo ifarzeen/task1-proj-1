@@ -7,6 +7,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import VueRouter from 'vue-router'
 import dtable from './components/DataTable.vue'
+import {store}  from './store/store';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,7 @@ Vue.config.productionTip = false
 new Vue({
   el:'#app',
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
 

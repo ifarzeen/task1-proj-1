@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="mx-auto card">
-      <b> Author:</b> {{  postDetails.author }} <b>Title: </b
-      >{{ postDetails.title }}
-      <button v-on:click="deletePost">Delete</button>
+      <b> Author:</b> {{ singlePostDetail.author }} <b>Title: </b
+      >{{ singlePostDetail.title }}
+      <button v-on:click="deletePost(singlePostDetail.id)">Delete</button>
     </div>
   </div>
 </template>
@@ -11,13 +11,17 @@
 <script>
 export default {
   name: "Row-Detail",
-  props: ["postDetails"],
-
+  props: ["singlePostDetail"],
+  computed: {
+    postDetails() {
+      return this.$store.getters.getPostDetails;
+    },
+  },
   methods: {
-    deletePost() {
-      this.$emit("deletePost", this.postDetails.id);
-    }
-  }
+    deletePost(postId) {
+      this.$store.commit("DELETE_POST", postId);
+    },
+  },
 };
 </script>
 

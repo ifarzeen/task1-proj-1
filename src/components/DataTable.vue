@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-bind:key="postItem + index"
+          v-bind:key="'postItem-' + index"
           v-for="(postItem, index) in postsData"
         >
           <td>{{ index + 1 }}</td>
@@ -20,7 +20,7 @@
           <td>
             <button
               class="btn btn-primary"
-              @click="showRowDetail(postItem.data)"
+              @click="showPostDetails(postItem.data)"
             >
               Detail
             </button>
@@ -28,43 +28,33 @@
         </tr>
       </tbody>
     </table>
-    <PostList
-      v-on:deletePost="deletePost($event)"
-      :post-details="postDetails"
-    />
+    <PostList />
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import $ from "jquery";
 import PostList from "./PostList.vue";
-
 export default {
   name: "Data-Table",
   components: {
     PostList,
   },
-
-  data() {
-    return {
-      postsData: [],
-      showDetail: false,
-      postDetails: [],
-    };
+  computed: {
+    postsData() {
+      return this.$store.getters.getTableData;
+    },
   },
-
+  created() {
+    this.$store.dispatch("requestTableData");
+  },
+  updated() {
+    this.initializeAndDelaySearch();
+  },
   methods: {
-    showRowDetail(tableItem) {
-      this.postDetails.push(tableItem);
+    showPostDetails(postItem) {
+      this.$store.commit("SHOW_POST_DETAILS", postItem);
     },
-
-    deletePost(data) {
-      this.postsData = this.postsData.filter(currentItem => 
-         data !== currentItem.data.id
-      );
-    },
-
     initializeAndDelaySearch() {
       $(document).ready(function() {
         const myDataTable = $(".data-table")
@@ -78,9 +68,7 @@ export default {
               { title: "Actions" },
             ],
           });
-
         const inputBox = $("input").attr("aria-name", "DataTables_Table_0");
-
         inputBox.unbind().bind("keyup", function() {
           if (inputBox.val().length >= 3) {
             myDataTable.search(this.value).draw();
@@ -92,14 +80,6 @@ export default {
       });
     },
   },
-
-  async mounted() {
-    const tableData = await axios.get(
-      "https://www.reddit.com/r/technology/new.json"
-    );
-    this.initializeAndDelaySearch();
-    this.postsData = tableData.data.data.children;
-  }
 };
 </script>
 
@@ -110,7 +90,6 @@ table {
   width: 100%;
   align-self: center;
 }
-
 th {
   background-color: #dddddd;
 }
@@ -120,12 +99,10 @@ th {
   text-align: left;
   padding: 8px;
 }
-
 .btn1 {
   background-color: transparent;
   border: none;
 }
-
 input {
   width: 90%;
 }

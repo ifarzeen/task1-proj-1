@@ -4,10 +4,7 @@
       v-bind:key="singlePost + index"
       v-for="(singlePost, index) in postDetails"
     >
-      <RowDetail
-        v-on:deletePost="deletePost($event)"
-        :post-details="singlePost"
-      />
+      <RowDetail :single-post-detail="singlePost" />
     </div>
   </div>
 </template>
@@ -16,14 +13,12 @@
 import RowDetail from "./RowDetail.vue";
 export default {
   name: "Post-List",
-  props: ["postDetails"],
   components: {
     RowDetail,
   },
-
-  methods: {
-    deletePost(data) {
-      this.$emit("deletePost", data);
+  computed: {
+    postDetails() {
+      return this.$store.getters.getPostDetails;
     },
   }
 };
