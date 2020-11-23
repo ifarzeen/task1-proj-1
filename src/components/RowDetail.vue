@@ -14,7 +14,7 @@ export default {
   props: ["singlePostDetail"],
   computed: {
     postDetails() {
-      return this.$store.getters.getPostDetail;
+      return this.$store.getters.getPostDetails;
     },
   },
   methods: {
